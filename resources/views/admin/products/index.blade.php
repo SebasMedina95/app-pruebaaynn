@@ -43,8 +43,8 @@
                                     <td class="text-right">$ {{ $product->product_value }}</td>
                                     <td class="text-center">{{ $product->product_amount }}</td>
                                     <td class="td-actions text-right">
-                                        <form method="post" action="{{ url('/admin/products/'.$product->id) }}">
-                                            @csrf
+                                        <!-- <form method="post" action="{{ url('/admin/products/'.$product->id) }}">
+                                            @csrf -->
                                             <!-- {{ method_field('DELETE') }} -->
 
                                             <a href="{{ url('/products/'.$product->id) }}" rel="tooltip" title="Ver producto" class="btn btn-info btn-simple btn-xs" target="_blank">
@@ -56,10 +56,16 @@
                                             <a href="{{ url('/admin/products/'.$product->id.'/images') }}" rel="tooltip" title="Imágenes del producto" class="btn btn-warning btn-simple btn-xs">
                                                 <i class="fa fa-image"></i>
                                             </a>
-                                            <button type="submit" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                            <form style="display: inline-block;" method="post" action="{{ url('/admin/products/'.$product->id.'/delete') }}">
+                                                @csrf
+                                                <button type="submit" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                            <!-- <button type="submit" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
                                                 <i class="fa fa-times"></i>
-                                            </button>
-                                        </form>
+                                            </button> -->
+                                        <!-- </form> -->
                                     </td>
                                 </tr>
                             @endforeach
@@ -79,12 +85,6 @@
 
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <div class="copyright pull-right">
-            &copy; 2023, Hecho con <i class="fa fa-heart heart"></i> Juan Sebastian Medina Toro
-        </div>
-    </div>
-</footer>
+@include('includes.footer')
 @endsection
 

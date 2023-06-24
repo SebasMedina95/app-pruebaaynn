@@ -14,6 +14,16 @@ class CategoryTableSeeder extends Seeder
     public function run(): void
     {
 
+        //El por default para cuando no se tenga categoría, por defecto quedará con id 1
+        // y no lo vamos a dejar eliminar
+        Category::create(
+            [
+                'name' => "SIN DEFINIR",
+                'description' => "CATEGORÍA SIN DEFINIR",
+                'image_category' => "CATEGORÍA SIN DEFINIR"
+            ]
+        );
+
         Category::create(
             [
                 'name' => "Category 1",

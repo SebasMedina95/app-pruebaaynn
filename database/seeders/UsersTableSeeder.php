@@ -21,7 +21,8 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Juan Sebastian Medina Toro',
                 'email' => 'sebasmedina@gmail.com',
-                'password' => bcrypt('123456789')
+                'password' => bcrypt('123456789'),
+                'admin' => true //Por defecto será admin
             ]
         );
 
@@ -29,7 +30,8 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Fabio de Jesus Medina Henao',
                 'email' => 'fabiomedina@gmail.com',
-                'password' => bcrypt('123456789')
+                'password' => bcrypt('123456789'),
+                'admin' => true //Por defecto será admin
             ]
         );
 
@@ -37,7 +39,35 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Anjellin Morales Panesso',
                 'email' => 'anjellinmorales@gmail.com',
-                'password' => bcrypt('123456789')
+                'password' => bcrypt('123456789'),
+                'admin' => true //Por defecto será admin
+            ]
+        );
+
+        User::create(
+            [
+                'name' => 'Javier Antonio Garcia',
+                'email' => 'javigarcia@gmail.com',
+                'password' => bcrypt('123456789'),
+                'admin' => false //Por defecto NO será admin
+            ]
+        );
+
+        User::create(
+            [
+                'name' => 'Monica Cecilia Toro Toro',
+                'email' => 'monicatoro@gmail.com',
+                'password' => bcrypt('123456789'),
+                'admin' => false //Por defecto NO será admin
+            ]
+        );
+
+        User::create(
+            [
+                'name' => 'Maria Paulina Villamizar',
+                'email' => 'maripaulina@gmail.com',
+                'password' => bcrypt('123456789'),
+                'admin' => false //Por defecto NO será admin
             ]
         );
 

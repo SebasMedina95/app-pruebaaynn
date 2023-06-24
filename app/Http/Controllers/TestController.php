@@ -22,6 +22,7 @@ class TestController extends Controller
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->join('product_images', 'products.id', '=', 'product_images.product_id')
             ->where('product_images.featured', '<>', false)
+            ->where('products.product_status', '=', '1')
             ->orderBy('products.product_name', 'asc')
             ->get();
 

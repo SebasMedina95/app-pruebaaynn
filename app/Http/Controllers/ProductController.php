@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -16,6 +17,7 @@ class ProductController extends Controller
             ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
             // ->join('product_images', 'products.id', '=', 'product_images.product_id')
             // ->where('product_images.featured', '<>', false)
+            ->where('products.product_status', '=', "1") //Esta activo
             ->select('products.*',
                      'categories.name')
             ->orderBy('products.id', 'desc')->paginate(5);
@@ -33,6 +35,32 @@ class ProductController extends Controller
 
     public function myStore(Request $request){
 
+        //Validar
+        $myMessages = [
+            "product_name.required" => 'El nombre del producto es obligatorio',
+            "product_name.max" => 'El nombre del producto no debe sobrepasar los 100 caracteres',
+            "product_name.min" => 'El nombre debe tener mínimo 5 caracteres',
+
+            "product_description.required" => 'La descripción del producto es obligatorio',
+            "product_description.max" => 'El nombre del producto no debe sobrepasar los 200 caracteres',
+
+            "product_value.required" => 'El valor del producto es un campo obligatorio',
+            "product_value.numeric" => 'El valor del producto debe ser un número',
+            "product_value.min" => 'El valor del producto no puede ser negativo',
+
+            "product_amount.required" => 'La cantidad del producto es un campo obligatorio',
+            "product_amount.numeric" => 'La cantidad del producto debe ser un número',
+            "product_amount.min" => 'La cantidad del producto no puede ser negativo',
+
+        ];
+        $rules = [
+            "product_name" => 'required|max:100|min:5',
+            "product_description" => 'required|max:200',
+            "product_value" => 'required|numeric|min:0',
+            "product_amount" => 'required|numeric|min:0',
+        ];
+        $this->validate($request, $rules, $myMessages);
+
         //Register product
         //dd($request->all());
         $product = new Product();
@@ -42,6 +70,7 @@ class ProductController extends Controller
         $product->product_value = $request->input('product_value');
         $product->product_amount = $request->input('product_amount');
         $product->product_status = "1";
+        $product->category_id = 1;
 
 
         $product->save();
@@ -58,6 +87,32 @@ class ProductController extends Controller
 
     public function myUpdate(Request $request, $id){
 
+        //Validar
+        $myMessages = [
+            "product_name.required" => 'El nombre del producto es obligatorio',
+            "product_name.max" => 'El nombre del producto no debe sobrepasar los 100 caracteres',
+            "product_name.min" => 'El nombre debe tener mínimo 5 caracteres',
+
+            "product_description.required" => 'La descripción del producto es obligatorio',
+            "product_description.max" => 'El nombre del producto no debe sobrepasar los 200 caracteres',
+
+            "product_value.required" => 'El valor del producto es un campo obligatorio',
+            "product_value.numeric" => 'El valor del producto debe ser un número',
+            "product_value.min" => 'El valor del producto no puede ser negativo',
+
+            "product_amount.required" => 'La cantidad del producto es un campo obligatorio',
+            "product_amount.numeric" => 'La cantidad del producto debe ser un número',
+            "product_amount.min" => 'La cantidad del producto no puede ser negativo',
+
+        ];
+        $rules = [
+            "product_name" => 'required|max:100|min:5',
+            "product_description" => 'required|max:200',
+            "product_value" => 'required|numeric|min:0',
+            "product_amount" => 'required|numeric|min:0',
+        ];
+        $this->validate($request, $rules, $myMessages);
+
         //Register product
         //dd($request->all());
         $product = Product::find($id); //Re insert pero entiende por find
@@ -68,6 +123,18 @@ class ProductController extends Controller
         $product->product_amount = $request->input('product_amount');
         $product->product_status = "1";
 
+
+        $product->save();
+        return redirect('/admin/products');
+
+    }
+
+    public function myDestroy(Request $request, $id){
+
+        //Register product
+        //dd($request->all());
+        $product = Product::find($id); //Re insert pero entiende por find
+        $product->product_status = "0";
 
         $product->save();
         return redirect('/admin/products');

@@ -98,13 +98,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-    <div class="container">
-        <div class="copyright pull-right">
-            &copy; 2023, Hecho con <i class="fa fa-heart heart"></i> Juan Sebastian Medina Toro
-        </div>
-    </div>
-</footer>
+    @include('includes.footer')
 
 </div>
 @endsection

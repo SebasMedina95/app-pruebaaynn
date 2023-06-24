@@ -21,7 +21,7 @@ class ProductsTableSeeder extends Seeder
                 'product_amount' => 45,
                 'product_value' => 1500,
                 'product_status' => "1",
-                'category_id' => 1
+                'category_id' => 2
             ]
         );
 
@@ -57,7 +57,7 @@ class ProductsTableSeeder extends Seeder
                 'product_amount' => 15,
                 'product_value' => 450,
                 'product_status' => "1",
-                'category_id' => 1
+                'category_id' => 4
             ]
         );
 
@@ -93,7 +93,7 @@ class ProductsTableSeeder extends Seeder
                 'product_amount' => 15,
                 'product_value' => 750,
                 'product_status' => "1",
-                'category_id' => 1
+                'category_id' => 3
             ]
         );
 
@@ -105,7 +105,7 @@ class ProductsTableSeeder extends Seeder
                 'product_amount' => 15,
                 'product_value' => 1850,
                 'product_status' => "1",
-                'category_id' => 3
+                'category_id' => 4
             ]
         );
 
@@ -176,6 +176,31 @@ class ProductsTableSeeder extends Seeder
                 'product_long_description' => "product_long_description 14",
                 'product_amount' => 27,
                 'product_value' => 650,
+                'product_status' => "1",
+                'category_id' => 1
+            ]
+        );
+
+        //Estos estarán por defecto sin imagenes para analizar comportamiento
+        Product::create(
+            [
+                'product_name' => "Product 15",
+                'product_description' => "The product_description 15",
+                'product_long_description' => "product_long_description 15",
+                'product_amount' => 27,
+                'product_value' => 950,
+                'product_status' => "1",
+                'category_id' => 3
+            ]
+        );
+
+        Product::create(
+            [
+                'product_name' => "Product 16",
+                'product_description' => "The product_description 16",
+                'product_long_description' => "product_long_description 16",
+                'product_amount' => 55,
+                'product_value' => 550,
                 'product_status' => "1",
                 'category_id' => 1
             ]

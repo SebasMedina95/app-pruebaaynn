@@ -1,17 +1,43 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+@section('title' , 'Dashboard Prueba AYNN')
+
+@section('body-class' , 'product-page')
+
+@section('content')
+<div class="header header-filter" style="background-image: url('https://images.unsplash.com/photo-1423655156442-ccc11daa4e99?crop=entropy&dpr=2&fit=crop&fm=jpg&h=750&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1450');">
+</div>
+
+<div class="main main-raised">
+    <div class="container">
+
+        <div class="section">
+            <h2 class="title text-center">Dashboard</h2>
+
+
+                <ul class="nav nav-pills nav-pills-primary" role="tablist">
+                    <li class="active">
+                        <a href="#dashboard" role="tab" data-toggle="tab">
+                            <i class="material-icons">dashboard</i>
+                            Carrito de compras
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tasks" role="tab" data-toggle="tab">
+                            <i class="material-icons">list</i>
+                            Pedidos realizados
+                        </a>
+                    </li>
+                </ul>
+
+
         </div>
+
     </div>
-</x-app-layout>
+
+</div>
+
+@include('includes.footer')
+@endsection
+
+

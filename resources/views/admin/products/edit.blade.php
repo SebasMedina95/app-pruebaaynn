@@ -60,7 +60,7 @@
 
                     <div class="col-sm-12">
                          <div class="form-group label-floating">
-                            <textarea class="form-control" placeholder="Descripción extensa del producto" rows="5" name="long_description">{{ old('product_long_description', $product->product_long_description) }}</textarea>
+                            <textarea class="form-control" placeholder="Descripción extensa del producto" rows="5" name="product_long_description">{{ old('product_long_description', $product->product_long_description) }}</textarea>
                         </div>
                     </div>
 
@@ -83,12 +83,6 @@
 
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <div class="copyright pull-right">
-            &copy; 2023, Hecho con <i class="fa fa-heart heart"></i> Juan Sebastian Medina Toro
-        </div>
-    </div>
-</footer>
+@include('includes.footer')
 @endsection
 
