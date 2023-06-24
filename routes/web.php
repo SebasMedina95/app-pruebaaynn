@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/', 'TestController@welcome');
+Route::get('/', [TestController::class, 'myWelcomeMethod']);
+
+Route::get('/admin/products', [ProductController::class, 'myIndex']); //Listado (Edit and Del)
+Route::get('/admin/products/create', [ProductController::class, 'myCreate']); //Form Create - view
+Route::post('/admin/products', [ProductController::class, 'myStore']); // Create
+
+Route::get('/admin/products/{id}/edit', [ProductController::class, 'myEdit']); //Form Edit - view
+Route::post('/admin/products/{id}/edit', [ProductController::class, 'myUpdate']); // Edit
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
