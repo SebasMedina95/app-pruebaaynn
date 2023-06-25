@@ -23,8 +23,7 @@ class TestController extends Controller
             ->join('product_images', 'products.id', '=', 'product_images.product_id')
             ->where('product_images.featured', '<>', false)
             ->where('products.product_status', '=', '1')
-            ->orderBy('products.product_name', 'asc')
-            ->get();
+            ->orderBy('products.product_name', 'asc')->paginate(6);
 
         return view('welcome')->with(compact('products'));
 

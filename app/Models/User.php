@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -42,4 +44,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //relacion entre usuario y order
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    // order id
+    public function getOrderAttribute()
+    {
+        $order = $this->orders()->where('order_status', 'Active')->first();
+        if ($order)
+            return $order;
+
+        // else
+        $order = new Order();
+        $order->order_status = 'Active';
+        $order->user_id = $this->id;
+        $order->save();
+
+        return $order;
+    }
+
 }

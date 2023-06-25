@@ -18,6 +18,7 @@
 	<!-- CSS Files -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/material-kit.css') }}" rel="stylesheet"/>
+    @yield('styles')
 
 </head>
 
@@ -52,8 +53,17 @@
                                     <li>
                                         <a href="{{ url('/admin/products') }}">Gestionar productos</a>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('/categories') }}">Gestionar categorias</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/cities') }}">Gestionar ciudades</a>
+                                    </li>
                                 @endif
                                 <!-- Siempre se tendrá indiferente el caso la opción salir -->
+                                <li>
+                                    <a href="{{ url('/') }}">Ir a Menú Principal</a>
+                                </li>
                                 <li>
                                     <a href="{{ url('/dashboard') }}">Ir a Dashboard</a>
                                 </li>

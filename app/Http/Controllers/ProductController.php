@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +30,8 @@ class ProductController extends Controller
 
     public function myCreate(){
 
-        return view('admin.products.create'); //View create form
+        $categories = Category::orderBy('id')->get();
+        return view('admin.products.create')->with(compact('categories')); // formulario de registro
 
     }
 
@@ -70,7 +72,8 @@ class ProductController extends Controller
         $product->product_value = $request->input('product_value');
         $product->product_amount = $request->input('product_amount');
         $product->product_status = "1";
-        $product->category_id = 1;
+        // $product->category_id = 1;
+        $product->category_id = $request->category_id;
 
 
         $product->save();
@@ -81,7 +84,8 @@ class ProductController extends Controller
     public function myEdit($id){
 
         $product = Product::find($id);
-        return view('admin.products.edit')->with(compact('product')); //View create form
+        $categories = Category::orderBy('id')->get();
+        return view('admin.products.edit')->with(compact('product','categories')); //View create form
 
     }
 
@@ -121,7 +125,7 @@ class ProductController extends Controller
         $product->product_long_description = $request->input('product_long_description');
         $product->product_value = $request->input('product_value');
         $product->product_amount = $request->input('product_amount');
-        $product->product_status = "1";
+        $product->category_id = $request->category_id;
 
 
         $product->save();
@@ -138,6 +142,50 @@ class ProductController extends Controller
 
         $product->save();
         return redirect('/admin/products');
+
+    }
+
+    public function myShow($id){
+
+        $images = DB::table('products')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->where('product_images.product_id', '=', $id)
+            ->select('products.*',
+                     'product_images.image_product',
+                     'product_images.featured',
+                     'categories.name')
+            ->orderBy('products.id', 'desc')
+            ->get();
+
+        $imagep = collect();
+
+        // $imagep = DB::table('products')
+        //     ->join('categories', 'categories.id', '=', 'products.category_id')
+        //     ->join('product_images', 'products.id', '=', 'product_images.product_id')
+        //     ->where('product_images.featured', '<>', false)
+        //     ->where('products.product_status', '=', '1')
+        //     ->where('product_images.product_id', '=', $id)
+        //     ->limit(1)
+        //     ->get();
+
+        // return $imagep;
+
+        $product = Product::find($id);
+        $category = Category::find( $product->category_id );
+
+        $imagesLeft = collect();
+        $imagesRight = collect();
+
+        foreach ($images as $key => $image) {
+            if( $key%2 == 0 ){
+                $imagesLeft->push($image);
+            }else{
+                $imagesRight->push($image);
+            }
+        }
+
+        return view('products.show')->with(compact('images','product','category','imagesLeft','imagesRight'));
 
     }
 
